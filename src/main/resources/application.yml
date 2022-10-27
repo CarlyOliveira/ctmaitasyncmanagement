@@ -1,0 +1,37 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/dbasyncmanagement?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false
+    password: ''
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: 'update'
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: asyncmanagement
+    password: 123456
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1s
+          max-attempts: 3
+          max-interval: 10s
+          multiplier: 2
+
+app:
+  rabbitmq:
+    topic-exchange: topic.operacoes.event-documents
+    topic-exchange-dlq: topic.operacoes.event-documents-dlq
+    routing-key: routing-key.operacoes.event-documents.create
+    routing-key-dlq: routing-key.operacoes.event-documents.create-dlq
+    dlq-active: false
+    queues:
+      create-document-by-event-offer: queue.operacoes.event-documents.create
+      create-document-by-event-offer-dlq: queue.operacoes.event-documents.create-dlq

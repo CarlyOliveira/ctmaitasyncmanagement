@@ -1,0 +1,53 @@
+#comando para subir: docker-compose up
+version: "3.9"
+services:
+
+  #Nome do containter com a imagem do MySql
+  dbasyncmanagement:
+    image: mysql:8.0.18
+    networks:
+      - asyncmanagement-network
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: "dbasyncmanagement"
+    ports:
+      - "3306:3306"
+    #Onde são gravados os dados do banco
+    volumes:
+      - asyncmanagement:/var/lib/mysql
+
+  #Nome do containter com a imagem do Client MySql para visualizar o banco
+  phpmyadmin:
+    depends_on:
+      - dbasyncmanagement
+    image: phpmyadmin/phpmyadmin
+    networks:
+      - asyncmanagement-network
+    restart: always
+    ports:
+      - 8088:80
+    environment:
+      PMA_HOST: dbasyncmanagement
+      MYSQL_ROOT_PASSWORD: ""
+
+  #Nome do containter com a imagem do rabbitmq
+  rabbitmq:
+    image: rabbitmq:3.7.8-management
+    networks:
+      - asyncmanagement-network
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=asyncmanagement
+      - RABBITMQ_DEFAULT_PASS=123456
+
+#Especificando a criação do volume
+volumes:
+  asyncmanagement:
+    driver: local
+
+#Especificando a rede para comunicação entre os serviços
+networks:
+  asyncmanagement-network:
