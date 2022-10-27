@@ -26,6 +26,9 @@ spring:
           multiplier: 2
 
 app:
+  deploy:
+    feature-toggle:
+      rabbit-startup-create: false
   rabbitmq:
     topic-exchange: topic.operacoes.event-documents
     topic-exchange-dlq: topic.operacoes.event-documents-dlq

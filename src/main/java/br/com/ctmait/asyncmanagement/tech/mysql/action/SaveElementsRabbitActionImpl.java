@@ -39,11 +39,11 @@ public class SaveElementsRabbitActionImpl implements SaveElementsRabbitAction {
 
         var entity = RabbitEntityMapper.INSTANCE.toRabbitEntity(rabbit);
 
-        logger.info("SERAI-E-00 saving rabbitEntity {}", entity);
+        logger.info("SERAI-E-01 saving rabbitEntity {}", entity);
 
         rabbitRepository.save(entity);
 
-        logger.info("SERAI-E-00 saved Rabbit {}", rabbit);
+        logger.info("SERAI-E-02 saved Rabbit {}", rabbit);
 
     }
 }

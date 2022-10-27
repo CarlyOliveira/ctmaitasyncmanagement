@@ -7,7 +7,7 @@ import br.com.ctmait.asyncmanagement.tech.infrastructure.annotation.Processor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 
 import java.util.HashMap;
 
@@ -50,7 +50,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validRabbit(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit, "rabbit cannot null");
+            notNullOrEmpty(rabbit, "rabbit cannot null");
         }catch (Exception e){
             errors.put("Rabbit", e.getMessage());
         }
@@ -58,7 +58,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validId(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getId(), "id cannot null");
+            notNullOrEmpty(rabbit.getId(), "id cannot null");
         }catch (Exception e){
             errors.put("id", e.getMessage());
         }
@@ -66,7 +66,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validExchange(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getExchange(), "exchange cannot null");
+            notNullOrEmpty(rabbit.getExchange(), "exchange cannot null");
         }catch (Exception e){
             errors.put("Exchange", e.getMessage());
         }
@@ -74,7 +74,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validExchangeName(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getExchange().getName(), "exchange name cannot null");
+            notNullOrEmpty(rabbit.getExchange().getName(), "exchange name cannot null");
         }catch (Exception e){
             errors.put("ExchangeName", e.getMessage());
         }
@@ -82,7 +82,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validExchangeType(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getExchange().getExchangeType(), "exchangeType cannot null");
+            notNullOrEmpty(rabbit.getExchange().getExchangeType(), "exchangeType cannot null");
         }catch (Exception e){
             errors.put("ExchangeType", e.getMessage());
         }
@@ -90,7 +90,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validQueue(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getQueue(), "queue cannot null");
+            notNullOrEmpty(rabbit.getQueue(), "queue cannot null");
         }catch (Exception e){
             errors.put("Queue", e.getMessage());
         }
@@ -98,7 +98,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validQueueName(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getQueue().getName(), "queue name cannot null");
+            notNullOrEmpty(rabbit.getQueue().getName(), "queue name cannot null");
         }catch (Exception e){
             errors.put("QueueName", e.getMessage());
         }
@@ -106,7 +106,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validRoutingKey(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getQueue().getRoutingKey(), "routingKey cannot null");
+            notNullOrEmpty(rabbit.getQueue().getRoutingKey(), "routingKey cannot null");
         }catch (Exception e){
             errors.put("RoutingKey", e.getMessage());
         }
@@ -114,7 +114,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validExchangeDlq(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getExchangeDlq(), "exchange dlq cannot null");
+            notNullOrEmpty(rabbit.getExchangeDlq(), "exchange dlq cannot null");
         }catch (Exception e){
             errors.put("ExchangeDlq", e.getMessage());
         }
@@ -122,7 +122,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validExchangeNameDlq(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getExchangeDlq().getName(), "exchange name dlq cannot null");
+            notNullOrEmpty(rabbit.getExchangeDlq().getName(), "exchange name dlq cannot null");
         }catch (Exception e){
             errors.put("ExchangeNameDlq", e.getMessage());
         }
@@ -130,7 +130,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validExchangeTypeDlq(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getExchangeDlq().getExchangeType(), "exchangeType dlq cannot null");
+            notNullOrEmpty(rabbit.getExchangeDlq().getExchangeType(), "exchangeType dlq cannot null");
         }catch (Exception e){
             errors.put("ExchangeTypeDlq", e.getMessage());
         }
@@ -138,7 +138,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validQueueDlq(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getQueueDlq(), "queue dlq cannot null");
+            notNullOrEmpty(rabbit.getQueueDlq(), "queue dlq cannot null");
         }catch (Exception e){
             errors.put("QueueDlq", e.getMessage());
         }
@@ -146,7 +146,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validQueueNameDlq(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getQueueDlq().getName(), "queue name dlq cannot null");
+            notNullOrEmpty(rabbit.getQueueDlq().getName(), "queue name dlq cannot null");
         }catch (Exception e){
             errors.put("QueueNameDlq", e.getMessage());
         }
@@ -154,7 +154,7 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void validRoutingKeyDlq(Rabbit rabbit, HashMap<String, String> errors){
         try {
-            Assert.notNull(rabbit.getQueueDlq().getRoutingKey(), "routingKey dlq cannot null");
+            notNullOrEmpty(rabbit.getQueueDlq().getRoutingKey(), "routingKey dlq cannot null");
         }catch (Exception e){
             errors.put("RoutingKeyDlq", e.getMessage());
         }
@@ -162,8 +162,18 @@ public class CreateElementsRabbitValidationImpl implements CreateElementsRabbitV
 
     private void hasErrorsThrowRabbitValidationException(HashMap<String, String> errors){
         if (errors.size() > 0){
-            throw new RabbitValidationException();
+            throw new RabbitValidationException(errors.toString());
         }
     }
 
+    private void notNullOrEmpty(Object object, String message){
+        if (ObjectUtils.isEmpty(object)) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+    private void notNullOrEmpty(String text, String message){
+        if (text == null || text.isBlank()) {
+            throw new IllegalArgumentException(message);
+        }
+    }
 }

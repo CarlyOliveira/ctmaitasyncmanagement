@@ -4,11 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
+@ConditionalOnProperty(
+        value = "app.deploy.rabbit-startup-create",
+        havingValue = "true",
+        matchIfMissing = false)
 public class RabbitBindingConfig {
 
   private final RabbitExchangeConfig rabbitExchangeConfig;
